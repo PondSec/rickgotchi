@@ -92,13 +92,19 @@ sudo cp -r /path/to/rickgotchi-repo/custom-faces /custom-faces
 
 Replace the `voice.py` file to give your Rickgotchi a unique personality with Rick’s iconic style.
 
-Run the following command to find the location of `voice.py` on your device:
+Run the following command to find the real location of `voice.py` on your device:
 
 ```bash
 sudo find / -name voice.py 2>/dev/null
 ```
 
-Typical path (example):
+Use the path returned by that command. On Jayofelony Pwnagotchi 2.9.5.3 images, it is commonly inside the hidden `.pwn` virtual environment:
+
+```
+/home/pi/.pwn/lib/python3.11/site-packages/pwnagotchi/voice.py
+```
+
+Other images may use a system Python path such as:
 
 ```
 /usr/local/lib/python3.11/dist-packages/pwnagotchi/voice.py
@@ -107,7 +113,8 @@ Typical path (example):
 Then, replace it with your custom version:
 
 ```bash
-sudo cp /path/to/your/custom/voice.py /usr/local/lib/python3.11/dist-packages/pwnagotchi/voice.py
+VOICE_PATH="$(sudo find / -path '*/pwnagotchi/voice.py' -print -quit 2>/dev/null)"
+sudo cp /path/to/your/custom/voice.py "$VOICE_PATH"
 ```
 
 ---
