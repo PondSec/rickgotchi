@@ -1,0 +1,47 @@
+{
+  "characters": [
+    {
+      "slug": "rick-sanchez",
+      "name": "Rick Sanchez",
+      "faces": "rick-sanchez/custom-faces",
+      "voice": "rick-sanchez/voice.py",
+      "voice_languages": ["en", "de", "es", "fr", "it", "pt", "pt_BR"]
+    },
+    {
+      "slug": "morty-smith",
+      "name": "Morty Smith",
+      "faces": "morty-smith/custom-faces",
+      "voice": "morty-smith/voice.py",
+      "voice_languages": ["en", "de", "es", "fr", "it", "pt", "pt_BR"]
+    },
+    {
+      "slug": "pickle-rick",
+      "name": "Pickle Rick",
+      "faces": "pickle-rick/custom-faces",
+      "voice": "pickle-rick/voice.py",
+      "voice_languages": ["en", "de", "es", "fr", "it", "pt", "pt_BR"]
+    },
+    {
+      "slug": "jerry-smith",
+      "name": "Jerry Smith",
+      "faces": "jerry-smith/custom-faces",
+      "voice": "jerry-smith/voice.py",
+      "voice_languages": ["en", "de", "es", "fr", "it", "pt", "pt_BR"]
+    },
+    {
+      "slug": "beth-smith",
+      "name": "Beth Smith",
+      "faces": "beth-smith/custom-faces",
+      "voice": "beth-smith/voice.py",
+      "voice_languages": ["en", "de", "es", "fr", "it", "pt", "pt_BR"]
+    },
+    {
+      "slug": "summer-smith",
+      "name": "Summer Smith",
+      "faces": "summer-smith/custom-faces",
+      "voice": "summer-smith/voice.py",
+      "voice_languages": ["en", "de", "es", "fr", "it", "pt", "pt_BR"]
+    }
+  ]
+}
+
