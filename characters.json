@@ -1,0 +1,25 @@
+{
+  "characters": [
+    {
+      "slug": "rick-sanchez",
+      "name": "Rick Sanchez",
+      "faces": "rick-sanchez/custom-faces",
+      "voice": "rick-sanchez/voice.py",
+      "voice_languages": ["en", "de", "es", "fr", "it", "pt", "nl", "pl", "tr", "sv"]
+    },
+    {
+      "slug": "morty-smith",
+      "name": "Morty Smith",
+      "faces": "morty-smith/custom-faces",
+      "voice": "morty-smith/voice.py",
+      "voice_languages": ["en", "de", "es", "fr", "it", "pt", "nl", "pl", "tr", "sv"]
+    },
+    {
+      "slug": "pickle-rick",
+      "name": "Pickle Rick",
+      "faces": "pickle-rick/custom-faces",
+      "voice": "pickle-rick/voice.py",
+      "voice_languages": ["en", "de", "es", "fr", "it", "pt", "nl", "pl", "tr", "sv"]
+    }
+  ]
+}
