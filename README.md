@@ -1,143 +1,117 @@
 # Rickgotchi
 
-**Rickgotchi** is a custom skin for Pwnagotchi featuring the legendary face and quotes of Rick Sanchez from "Rick and Morty". This mod replaces the default ASCII faces and optionally the voice system, giving your AI companion more character, sarcasm, and science.
+Rickgotchi is a fan-made set of Pwnagotchi character packs inspired by Rick and Morty. Each pack includes custom PNG faces plus a standalone `voice.py` with character-specific lines.
 
----
+## Character Packs
 
-## ⚙️ Setup Instructions
+| Character | Folder | Voice languages |
+| --- | --- | --- |
+| Rick Sanchez | `rick-sanchez` | `en`, `de`, `es`, `fr`, `it`, `pt`, `pt_BR` |
+| Morty Smith | `morty-smith` | `en`, `de`, `es`, `fr`, `it`, `pt`, `pt_BR` |
+| Pickle Rick | `pickle-rick` | `en`, `de`, `es`, `fr`, `it`, `pt`, `pt_BR` |
+| Jerry Smith | `jerry-smith` | `en`, `de`, `es`, `fr`, `it`, `pt`, `pt_BR` |
+| Beth Smith | `beth-smith` | `en`, `de`, `es`, `fr`, `it`, `pt`, `pt_BR` |
+| Summer Smith | `summer-smith` | `en`, `de`, `es`, `fr`, `it`, `pt`, `pt_BR` |
 
-### 1. Replace Default Faces
+## Quick Install
 
-Open your Pwnagotchi configuration file:
+From the repository root, choose one character slug:
+
+```bash
+scripts/install-character.sh rick-sanchez
+scripts/install-character.sh morty-smith
+scripts/install-character.sh pickle-rick
+scripts/install-character.sh jerry-smith
+scripts/install-character.sh beth-smith
+scripts/install-character.sh summer-smith
+```
+
+The installer:
+
+- copies the selected face PNGs to `/custom-faces`
+- finds the active Pwnagotchi `voice.py`
+- creates a timestamped backup of the original voice file
+- installs the selected character voice
+
+Then open your Pwnagotchi config:
 
 ```bash
 sudo nano /etc/pwnagotchi/config.toml
 ```
 
-Find and **replace the entire block** that looks like this:
-
-```toml
-ui.faces.look_r = "( ⚆_⚆)"
-ui.faces.look_l = "(☉_☉ )"
-ui.faces.look_r_happy = "( ◕‿◕)"
-ui.faces.look_l_happy = "(◕‿◕ )"
-ui.faces.sleep = "(⇀‿‿↼)"
-ui.faces.sleep2 = "(≖‿‿≖)"
-ui.faces.awake = "(◕‿‿◕)"
-ui.faces.bored = "(-__-)"
-ui.faces.intense = "(°▃▃°)"
-ui.faces.cool = "(⌐■_■)"
-ui.faces.happy = "(•‿‿•)"
-ui.faces.excited = "(ᵔ◡◡ᵔ)"
-ui.faces.grateful = "(^‿‿^)"
-ui.faces.motivated = "(☼‿‿☼)"
-ui.faces.demotivated = "(≖__≖)"
-ui.faces.smart = "(✜‿‿✜)"
-ui.faces.lonely = "(ب__ب)"
-ui.faces.sad = "(╥☁╥ )"
-ui.faces.angry = "(-_-')"
-ui.faces.friend = "(♥‿‿♥)"
-ui.faces.broken = "(☓‿‿☓)"
-ui.faces.debug = "(#__#)"
-ui.faces.upload = "(1__0)"
-ui.faces.upload1 = "(1__1)"
-ui.faces.upload2 = "(0__1)"
-ui.faces.png = false
-ui.faces.position_x = 0
-ui.faces.position_y = 34
-```
-
-**With this Rickgotchi version:**
-
-```toml
-ui.faces.look_r = "/custom-faces/LOOK_R.png"
-ui.faces.look_l = "/custom-faces/LOOK_L.png"
-ui.faces.look_r_happy = "/custom-faces/LOOK_R_HAPPY.png"
-ui.faces.look_l_happy = "/custom-faces/LOOK_L_HAPPY.png"
-ui.faces.sleep = "/custom-faces/SLEEP.png"
-ui.faces.sleep2 = "/custom-faces/SLEEP2.png"
-ui.faces.awake = "/custom-faces/AWAKE.png"
-ui.faces.bored = "/custom-faces/BORED.png"
-ui.faces.intense = "/custom-faces/INTENSE.png"
-ui.faces.cool = "/custom-faces/COOL.png"
-ui.faces.happy = "/custom-faces/HAPPY.png"
-ui.faces.excited = "/custom-faces/EXCITED.png"
-ui.faces.grateful = "/custom-faces/GRATEFUL.png"
-ui.faces.motivated = "/custom-faces/MOTIVATED.png"
-ui.faces.demotivated = "/custom-faces/DEMOTIVATED.png"
-ui.faces.smart = "/custom-faces/SMART.png"
-ui.faces.lonely = "/custom-faces/LONELY.png"
-ui.faces.sad = "/custom-faces/SAD.png"
-ui.faces.angry = "/custom-faces/ANGRY.png"
-ui.faces.friend = "/custom-faces/FRIEND.png"
-ui.faces.broken = "/custom-faces/BROKEN.png"
-ui.faces.debug = "/custom-faces/DEBUG.png"
-ui.faces.upload = "/custom-faces/UPLOAD.png"
-ui.faces.upload1 = "/custom-faces/UPLOAD1.png"
-ui.faces.upload2 = "/custom-faces/UPLOAD2.png"
-ui.faces.png = true
-ui.faces.position_x = 0
-ui.faces.position_y = 34
-```
-
-Make sure all the PNG files are placed under a directory called `/custom-faces/` in the root (`/`) of your system. You can copy the folder from this repository:
+Paste or merge the face settings from:
 
 ```bash
-sudo cp -r /path/to/rickgotchi-repo/custom-faces /custom-faces
+config/faces.toml
 ```
 
----
-
-### 2. Replace the Voice File (Optional)
-
-Replace the `voice.py` file to give your Rickgotchi a unique personality with Rick’s iconic style.
-
-Run the following command to find the real location of `voice.py` on your device:
-
-```bash
-sudo find / -name voice.py 2>/dev/null
-```
-
-Use the path returned by that command. On Jayofelony Pwnagotchi 2.9.5.3 images, it is commonly inside the hidden `.pwn` virtual environment:
-
-```
-/home/pi/.pwn/lib/python3.11/site-packages/pwnagotchi/voice.py
-```
-
-Other images may use a system Python path such as:
-
-```
-/usr/local/lib/python3.11/dist-packages/pwnagotchi/voice.py
-```
-
-Then, replace it with your custom version:
-
-```bash
-VOICE_PATH="$(sudo find / -path '*/pwnagotchi/voice.py' -print -quit 2>/dev/null)"
-sudo cp /path/to/your/custom/voice.py "$VOICE_PATH"
-```
-
----
-
-### 3. Use Rickgotchi in German
-
-If you want Rickgotchi to speak German, replace the default translation files:
-
-1. Copy the German `.mo` and `.po` files from this repository:
-
-```bash
-sudo cp voice.mo /usr/local/lib/python3.11/dist-packages/pwnagotchi/locale/de/LC_MESSAGES/
-sudo cp voice.po /usr/local/lib/python3.11/dist-packages/pwnagotchi/locale/de/LC_MESSAGES/
-```
-
-2. Then open your config file and change the language:
+Set the language you want:
 
 ```toml
 main.lang = "de"
 ```
 
----
+Supported values are `en`, `de`, `es`, `fr`, `it`, `pt`, and `pt_BR`.
 
-Enjoy your Rickgotchi — a smarter, ruder, and way cooler version of Pwnagotchi.
+## Manual Install
 
-> *"Wubba Lubba Dub Dub! Now go own some packets."*
+Copy the selected faces:
+
+```bash
+sudo mkdir -p /custom-faces
+sudo rm -rf /custom-faces/*
+sudo cp -a rick-sanchez/custom-faces/. /custom-faces/
+```
+
+Find the real `voice.py` location on your device:
+
+```bash
+sudo find / -name voice.py 2>/dev/null
+```
+
+On Jayofelony Pwnagotchi 2.9.5.3 images, the path is commonly inside the hidden `.pwn` virtual environment:
+
+```text
+/home/pi/.pwn/lib/python3.11/site-packages/pwnagotchi/voice.py
+```
+
+Other images may use a system Python path:
+
+```text
+/usr/local/lib/python3.11/dist-packages/pwnagotchi/voice.py
+```
+
+Use the path found on your device:
+
+```bash
+VOICE_PATH="$(sudo find / -path '*/pwnagotchi/voice.py' -print -quit 2>/dev/null)"
+sudo cp "$VOICE_PATH" "$VOICE_PATH.rickgotchi-backup"
+sudo cp rick-sanchez/voice.py "$VOICE_PATH"
+```
+
+Replace `rick-sanchez` with any other character folder.
+
+## Face Config
+
+Rickgotchi uses PNG faces, so your config must enable `ui.faces.png = true`. The complete reusable block lives in:
+
+```bash
+config/faces.toml
+```
+
+All character packs use the same face filenames, so you do not need to change the config when switching characters. Just reinstall another pack.
+
+## Development
+
+Generated assets are reproducible:
+
+```bash
+python3 scripts/generate_character_faces.py
+python3 scripts/build_voice_files.py
+```
+
+`characters.json` is the source of truth for available packs and voice languages.
+
+## Responsible Use
+
+Use Rickgotchi only on networks and devices you own or are explicitly allowed to test.
