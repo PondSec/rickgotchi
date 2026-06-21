@@ -52,6 +52,13 @@ def line(draw, points, width=1):
     draw.line([(s(x), s(y)) for x, y in points], fill=LINE, width=s(width))
 
 
+def polygon(draw, points, fill=None, width=1):
+    scaled = [(s(x), s(y)) for x, y in points]
+    if fill:
+        draw.polygon(scaled, fill=fill)
+    draw.line(scaled + [scaled[0]], fill=LINE, width=s(width))
+
+
 def ellipse(draw, box, width=1):
     draw.ellipse(coords(box), outline=LINE, width=s(width))
 
@@ -66,34 +73,36 @@ def text(draw, xy, value):
 
 def draw_character_base(draw, character):
     if character == "jerry-smith":
-        ellipse(draw, (22, 14, 53, 61))
-        arc(draw, (22, 12, 53, 32), 190, 350)
-        line(draw, [(25, 20), (30, 15), (35, 18), (40, 15), (48, 21)])
-        ellipse(draw, (18, 34, 24, 43))
-        ellipse(draw, (51, 34, 57, 43))
-        line(draw, [(30, 61), (29, 67), (45, 67), (44, 61)])
-        line(draw, [(26, 67), (49, 67)])
+        polygon(draw, [(17, 32), (21, 20), (33, 13), (48, 12), (59, 20), (64, 36),
+                       (61, 56), (50, 70), (34, 71), (22, 58), (14, 42)])
+        polygon(draw, [(14, 38), (17, 27), (25, 17), (38, 10), (51, 10), (61, 17),
+                       (67, 27), (66, 38), (60, 48), (55, 36), (47, 29), (35, 27),
+                       (25, 31), (17, 43)], fill=LINE, width=1)
+        ellipse(draw, (10, 42, 21, 55))
+        line(draw, [(47, 39), (53, 56), (43, 57)])
+        arc(draw, (26, 52, 36, 68), 110, 250)
+        arc(draw, (50, 52, 60, 68), 290, 70)
     elif character == "beth-smith":
-        ellipse(draw, (22, 16, 53, 62))
-        arc(draw, (17, 10, 58, 56), 200, 340)
-        line(draw, [(24, 18), (31, 11), (42, 13), (52, 23)])
-        line(draw, [(21, 22), (17, 38), (22, 54)])
-        line(draw, [(53, 24), (58, 39), (53, 56)])
-        ellipse(draw, (18, 35, 24, 43))
-        ellipse(draw, (51, 35, 57, 43))
-        line(draw, [(31, 62), (29, 68), (46, 68), (44, 62)])
-        line(draw, [(25, 68), (50, 68)])
+        polygon(draw, [(20, 23), (29, 12), (45, 13), (57, 25), (62, 45), (57, 64),
+                       (46, 73), (31, 72), (20, 62), (15, 44)])
+        arc(draw, (9, 2, 68, 67), 185, 350, width=2)
+        line(draw, [(20, 24), (31, 9), (47, 11), (61, 28)], width=2)
+        line(draw, [(16, 24), (10, 44), (18, 70)], width=2)
+        line(draw, [(58, 25), (67, 45), (58, 71)], width=2)
+        line(draw, [(39, 38), (43, 54), (37, 56)])
+        ellipse(draw, (12, 41, 21, 51))
+        ellipse(draw, (57, 41, 66, 51))
     elif character == "summer-smith":
-        ellipse(draw, (23, 17, 53, 62))
-        arc(draw, (18, 11, 58, 55), 195, 345)
-        line(draw, [(24, 20), (33, 13), (45, 16), (54, 25)])
-        line(draw, [(22, 23), (18, 40), (23, 57)])
-        line(draw, [(52, 25), (58, 38), (53, 55)])
-        ellipse(draw, (52, 24, 64, 43))
-        ellipse(draw, (19, 35, 25, 43))
-        ellipse(draw, (50, 35, 56, 43))
-        line(draw, [(31, 62), (30, 68), (46, 68), (45, 62)])
-        line(draw, [(26, 68), (50, 68)])
+        polygon(draw, [(19, 24), (30, 13), (47, 14), (58, 26), (62, 45), (57, 63),
+                       (46, 72), (31, 71), (20, 61), (15, 43)])
+        arc(draw, (9, 2, 68, 67), 190, 345, width=2)
+        line(draw, [(20, 24), (34, 9), (51, 15), (61, 29)], width=2)
+        line(draw, [(17, 25), (10, 43), (18, 68)], width=2)
+        line(draw, [(57, 26), (65, 43), (58, 68)], width=2)
+        ellipse(draw, (55, 22, 72, 49), width=2)
+        line(draw, [(40, 39), (44, 54), (38, 56)])
+        ellipse(draw, (12, 41, 21, 51))
+        ellipse(draw, (56, 41, 65, 51))
 
 
 def draw_eyebrows(draw, eyes):
@@ -110,36 +119,46 @@ def draw_eyebrows(draw, eyes):
 
 def draw_eye_pair(draw, eyes, character):
     draw_eyebrows(draw, eyes)
+    if character == "jerry-smith":
+        left = (25, 31, 42, 48)
+        right = (47, 30, 65, 47)
+        left_pupil = (36, 40)
+        right_pupil = (58, 39)
+    else:
+        left = (25, 34, 38, 47)
+        right = (42, 34, 55, 47)
+        left_pupil = (32, 41)
+        right_pupil = (49, 41)
 
     if eyes in {"sleep", "sleep2"}:
-        line(draw, [(29, 38), (36, 38)])
-        line(draw, [(40, 38), (47, 38)])
+        line(draw, [(left[0] + 1, left[1] + 5), (left[2] - 1, left[1] + 5)])
+        line(draw, [(right[0] + 1, right[1] + 5), (right[2] - 1, right[1] + 5)])
         if eyes == "sleep2":
             text(draw, (50, 44), "z")
             text(draw, (56, 39), "z")
         return
 
     if eyes == "dead":
-        line(draw, [(29, 34), (36, 41)])
-        line(draw, [(36, 34), (29, 41)])
-        line(draw, [(40, 34), (47, 41)])
-        line(draw, [(47, 34), (40, 41)])
+        line(draw, [(left[0] + 1, left[1] + 1), (left[2] - 1, left[3] - 1)])
+        line(draw, [(left[2] - 1, left[1] + 1), (left[0] + 1, left[3] - 1)])
+        line(draw, [(right[0] + 1, right[1] + 1), (right[2] - 1, right[3] - 1)])
+        line(draw, [(right[2] - 1, right[1] + 1), (right[0] + 1, right[3] - 1)])
         return
 
     if eyes == "cool":
-        draw.rectangle(coords((27, 34, 37, 41)), outline=LINE, width=s(1))
-        draw.rectangle(coords((39, 34, 49, 41)), outline=LINE, width=s(1))
-        line(draw, [(37, 37), (39, 37)])
+        draw.rectangle(coords((left[0], left[1] + 2, left[2], left[3] - 2)), outline=LINE, width=s(1))
+        draw.rectangle(coords((right[0], right[1] + 2, right[2], right[3] - 2)), outline=LINE, width=s(1))
+        line(draw, [(left[2], left[1] + 6), (right[0], right[1] + 6)])
         return
 
     if eyes == "happy":
-        arc(draw, (28, 34, 37, 42), 200, 340)
-        arc(draw, (39, 34, 48, 42), 200, 340)
+        arc(draw, (left[0], left[1] + 2, left[2], left[3]), 200, 340)
+        arc(draw, (right[0], right[1] + 2, right[2], right[3]), 200, 340)
         return
 
     if eyes == "soft":
-        arc(draw, (28, 34, 37, 42), 190, 350)
-        arc(draw, (39, 34, 48, 42), 190, 350)
+        arc(draw, (left[0], left[1] + 2, left[2], left[3]), 190, 350)
+        arc(draw, (right[0], right[1] + 2, right[2], right[3]), 190, 350)
         return
 
     if eyes == "heart":
@@ -168,14 +187,14 @@ def draw_eye_pair(draw, eyes, character):
         return
 
     if eyes == "wide":
-        ellipse(draw, (27, 32, 37, 43))
-        ellipse(draw, (39, 32, 49, 43))
-        ellipse(draw, (31, 36, 33, 38))
-        ellipse(draw, (43, 36, 45, 38))
+        ellipse(draw, (left[0] - 1, left[1] - 2, left[2] + 1, left[3] + 1))
+        ellipse(draw, (right[0] - 1, right[1] - 2, right[2] + 1, right[3] + 1))
+        ellipse(draw, (left_pupil[0] - 1, left_pupil[1] - 1, left_pupil[0] + 1, left_pupil[1] + 1))
+        ellipse(draw, (right_pupil[0] - 1, right_pupil[1] - 1, right_pupil[0] + 1, right_pupil[1] + 1))
         return
 
-    ellipse(draw, (28, 34, 37, 43))
-    ellipse(draw, (39, 34, 48, 43))
+    ellipse(draw, left)
+    ellipse(draw, right)
 
     pupil_offset = 0
     if eyes == "left":
@@ -186,31 +205,44 @@ def draw_eye_pair(draw, eyes, character):
         line(draw, [(28, 36), (37, 36)])
         line(draw, [(39, 36), (48, 36)])
 
-    ellipse(draw, (31 + pupil_offset, 38, 33 + pupil_offset, 40))
-    ellipse(draw, (42 + pupil_offset, 38, 44 + pupil_offset, 40))
+    ellipse(draw, (left_pupil[0] - 1 + pupil_offset, left_pupil[1] - 1,
+                   left_pupil[0] + 1 + pupil_offset, left_pupil[1] + 1))
+    ellipse(draw, (right_pupil[0] - 1 + pupil_offset, right_pupil[1] - 1,
+                   right_pupil[0] + 1 + pupil_offset, right_pupil[1] + 1))
 
     if character in {"beth-smith", "summer-smith"}:
         line(draw, [(27, 35), (25, 33)])
         line(draw, [(49, 35), (51, 33)])
 
 
-def draw_mouth(draw, mouth):
-    if mouth == "smile":
-        arc(draw, (31, 45, 46, 56), 20, 160)
-    elif mouth == "smirk":
-        line(draw, [(32, 51), (45, 48)])
-    elif mouth == "sad":
-        arc(draw, (31, 49, 46, 59), 200, 340)
-    elif mouth == "frown":
-        arc(draw, (31, 48, 46, 59), 200, 340)
-        line(draw, [(31, 49), (29, 48)])
-        line(draw, [(46, 49), (48, 48)])
-    elif mouth == "open":
-        ellipse(draw, (34, 48, 42, 56))
-    elif mouth == "sleep":
-        text(draw, (35, 49), "o")
+def draw_mouth(draw, mouth, character):
+    if character == "jerry-smith":
+        smile_box = (28, 56, 57, 72)
+        sad_box = (29, 56, 58, 73)
+        open_box = (39, 57, 49, 67)
+        flat_line = [(31, 62), (56, 62)]
     else:
-        line(draw, [(32, 51), (45, 51)])
+        smile_box = (30, 50, 51, 64)
+        sad_box = (30, 53, 52, 68)
+        open_box = (35, 54, 45, 64)
+        flat_line = [(31, 58), (51, 58)]
+
+    if mouth == "smile":
+        arc(draw, smile_box, 20, 160)
+    elif mouth == "smirk":
+        line(draw, [(flat_line[0][0], flat_line[0][1]), (flat_line[1][0], flat_line[1][1] - 3)])
+    elif mouth == "sad":
+        arc(draw, sad_box, 200, 340)
+    elif mouth == "frown":
+        arc(draw, sad_box, 200, 340)
+        line(draw, [(sad_box[0], sad_box[1]), (sad_box[0] - 2, sad_box[1] - 1)])
+        line(draw, [(sad_box[2], sad_box[1]), (sad_box[2] + 2, sad_box[1] - 1)])
+    elif mouth == "open":
+        ellipse(draw, open_box)
+    elif mouth == "sleep":
+        text(draw, (open_box[0] + 1, open_box[1]), "o")
+    else:
+        line(draw, flat_line)
 
 
 def draw_face(character, eyes, mouth):
@@ -218,7 +250,7 @@ def draw_face(character, eyes, mouth):
     draw = ImageDraw.Draw(canvas)
     draw_character_base(draw, character)
     draw_eye_pair(draw, eyes, character)
-    draw_mouth(draw, mouth)
+    draw_mouth(draw, mouth, character)
     return canvas.resize((SIZE, SIZE), Image.Resampling.LANCZOS)
 
 
